@@ -4,7 +4,7 @@
     <groupId>org.atilika.kuromoji</groupId>
     <artifactId>kuromoji-server</artifactId>
     <packaging>war</packaging>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
     <name>Kuromoji Japanese Morphological Analyzer Demo</name>
 
     <organization>
@@ -18,14 +18,14 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>Atilika Open Source Snapshots</id>
-            <url>http://atilika.org/nexus/content/repositories/atilika/</url>
-        </repository>
+        <!--<repository>-->
+        <!--<id>Atilika Open Source Snapshots</id>-->
+        <!--<url>http://atilika.org/nexus/content/repositories/atilika/</url>-->
+        <!--</repository>-->
     </repositories>
 
     <build>
-        <finalName>kuromoji</finalName>
+        <finalName>kuromoji-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -48,11 +48,61 @@
         </plugins>
     </build>
     <dependencies>
+
+        <!--Temporary references to local kuromoji jars -->
         <dependency>
             <groupId>org.atilika.kuromoji</groupId>
             <artifactId>kuromoji</artifactId>
-            <version>0.7.7</version>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../kuromoji/kuromoji-common/target/kuromoji-common-0.9-SNAPSHOT.jar
+            </systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.atilika.kuromoji.ipadic</groupId>
+            <artifactId>kuromoji-ipadic</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../kuromoji/kuromoji-ipadic/target/kuromoji-ipadic-0.9-SNAPSHOT.jar
+            </systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.atilika.kuromoji.unidic</groupId>
+            <artifactId>kuromoji-unidic</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../kuromoji/kuromoji-unidic/target/kuromoji-unidic-0.9-SNAPSHOT.jar
+            </systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.atilika.kuromoji.unidic-kanaaccent</groupId>
+            <artifactId>kuromoji-unidic-kanaaccent</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/../kuromoji/kuromoji-unidic-kanaaccent/target/kuromoji-unidic-kanaaccent-0.9-SNAPSHOT.jar
+            </systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.atilika.kuromoji.jumandic</groupId>
+            <artifactId>kuromoji-jumandic</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/../kuromoji/kuromoji-jumandic/target/kuromoji-jumandic-0.9-SNAPSHOT.jar
+            </systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.atilika.kuromoji.naist-jdic</groupId>
+            <artifactId>kuromoji-naist-jdic</artifactId>
+            <version>0.9</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/../kuromoji/kuromoji-naist-jdic/target/kuromoji-naist-jdic-0.9-SNAPSHOT.jar
+            </systemPath>
+        </dependency>
+        <!--/-->
+
         <dependency>
             <groupId>org.apache.wink</groupId>
             <artifactId>wink-common</artifactId>
@@ -82,6 +132,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.10</version>
         </dependency>
     </dependencies>
 
