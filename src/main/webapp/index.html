@@ -1,191 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>kuromoji demo - japanese morphological analyzer</title>
+<meta charset="utf-8">
+<title>kuromoji demo - japanese morphological analyzer</title>
 
-    <!-- for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<!-- for IE6-8 support of HTML elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 
-    <link rel="shortcut icon" href="img/atilika.ico"/>
+<link rel="shortcut icon" href="img/atilika.ico"/>
 
-    <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
-    <!--<link href="css/kuromoji.css" type="text/css" rel="stylesheet"/>-->
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet">
+<!--<link href="css/kuromoji.css" type="text/css" rel="stylesheet"/>-->
 
-    <!--  customisations -->
-    <style type="text/css">
-        body {
-            background-color: #ffffff;
-            color: #404040;
-            position: relative;
+<!--  customisations -->
+<style type="text/css">
+    body {
+        background-color: #ffffff;
+        color: #404040;
+        position: relative;
+    }
+
+    section > .page-header {
+        padding-bottom: 0px;
+    }
+
+    a {
+        color: #0069d6;
+    }
+
+    a:hover {
+        color: #00438a;
+    }
+
+    li {
+        color: #606060;
+    }
+
+    #input {
+        width: 100%;
+        resize: vertical;
+    }
+
+    h3, h4, h5, h6 {
+        line-height: 36px;
+    }
+
+    h2 small {
+        color: #bfbfbf;
+        font-size: 14px;
+    }
+
+    .container > footer p {
+        padding-top: 20px;
+        text-align: right;
+        font-size: 12px;
+        color: #888;
+    }
+
+    .kuromoji-segmentation-container {
+        font-size: 28px;
+        line-height: 32px;
+        box-sizing: border-box;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+
+    .kuromoji-segmentation-row {
+        display: block;
+        vertical-align: middle;
+        height: 32px;
+        white-space: nowrap;
+    }
+
+    .kuromoji-segmentation-original {
+        color: #77a;
+    }
+
+    .kuromoji-segmentation-title {
+        display: inline-block;
+        vertical-align: middle;
+        width: 120px;
+        font-size: 13px;
+    }
+
+    .kuromoji-segmentation-kanji {
+        display: inline-block;
+        vertical-align: middle;
+        width: 42px;
+        text-align: center;
+    }
+
+    .kuromoji-segmentation-color-0 {
+        background-color: rgba(200, 200, 240, 0.3);
+    }
+
+    .kuromoji-segmentation-color-1 {
+        background-color: rgba(200, 240, 200, 0.4);
+    }
+
+    .kuromoji-segmentation-color-2 {
+        background-color: rgba(240, 200, 240, 0.5);
+    }
+
+    .kuromoji-segmentation-color-3 {
+        background-color: rgba(200, 240, 240, 0.6);
+    }
+
+    .kuromoji-segmentation-color-4 {
+        background-color: rgba(240, 240, 200, 0.5);
+    }
+
+    .kuromoji-segmentation-token {
+        display: inline;
+        vertical-align: middle;
+    }
+
+    .kuromoji-segmentation-token-start {
+        box-sizing: border-box;
+    }
+
+    .kuromoji-segmentation-token-end {
+        box-sizing: border-box;
+        border-right: solid 1px #77a;
+    }
+</style>
+
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-15660520-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+<script>
+    function createSegmentationTable(data) {
+        var tokens = data.tokens;
+        var table = $('<div></div>').addClass('kuromoji-segmentation-container');
+
+        // create table header containing a cell for each source character
+        var header = $('<div></div>')
+                .addClass('kuromoji-segmentation-row')
+                .addClass('kuromoji-segmentation-original')
+                .append($("<div></div>")
+                        .addClass('kuromoji-segmentation-title')
+                        .text(""));
+        for (var i = 0; i < data.input.length; i++) {
+            $(header).append(
+                    $("<div></div>")
+                            .addClass('kuromoji-segmentation-kanji')
+//                            .addClass('kuromoji-segmentation-color-' + (i % 5))
+                            .text(data.input[i])
+            );
         }
 
-        section > .page-header {
-            padding-bottom: 0px;
-        }
+        $(table).append(header);
 
-        a {
-            color: #0069d6;
-        }
-
-        a:hover {
-            color: #00438a;
-        }
-
-        li {
-            color: #606060;
-        }
-
-        #input {
-            width: 100%;
-            resize: vertical;
-        }
-
-        h3, h4, h5, h6 {
-            line-height: 36px;
-        }
-
-        h2 small {
-            color: #bfbfbf;
-            font-size: 14px;
-        }
-
-        .container > footer p {
-            padding-top: 20px;
-            text-align: right;
-            font-size: 12px;
-            color: #888;
-        }
-    </style>
-
-    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-
-    <!-- Google Analytics -->
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-15660520-5']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-
-
-    <script>
-        function tokenize() {
-            var text = $('#input').val();
-            var mode = get_mode();
-            $.post('/kuromoji/rest/tokenizer/tokenize', { text: encodeURI(text), mode: mode}, function (data) {
-//          $.getJSON('/kuromoji/rest/tokenizer/tokenize?text=' + encodeURI(text) + '&mode=' + mode, function (data) {
-                var tokens = data.tokens;
-                if (mode == '3') {
-                    var viterbi = data.viterbi;
-                    clear_response();
-                    $('#viterbi').append(viterbi);
-                } else {
-                    var table = $('<table></table>').addClass("table").addClass("table-striped");
-
-                    // get maximal features
-                    var featureMap = {"SURFACE": 1000};
-                    for (var dictionary in tokens) {
-                        var t = tokens[dictionary];
-                        for (var i = 0; i < t.length; i++) {
-                            for (var feature in t[i]) {
-                                featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
-                            }
-                        }
-                    }
-                    var features = [];
-                    for (feature in featureMap) {
-                        features.push(feature);
-                    }
-                    //sort features by usage frequency
-                    features.sort(function (a, b) {
-                        return featureMap[b] - featureMap[a];
-                    });
-
-                    // create table header
-                    var header = $('<tr></tr>')
-                            .append($("<th></th>").text("Dictionary"));
-                    for (var i = 0; i < features.length; i++) {
-                        $(header).append(
-                                $("<th></th>").text(features[i])
-                        );
-                    }
-
-                    var body = $("<tbody></tbody>");
-                    // add each dictionaries tokenization
-                    for (var dictionary in tokens) {
-                        var t = tokens[dictionary];
-                        for (var i = 0; i < t.length; i++) {
-                            var row = $('<tr></tr>');
-                            $(row).append($('<td></td>').text(i == 0 ? dictionary : ""));
-                            for (var j = 0; j < features.length; j++) {
-                                var feature = t[i][features[j]];
-                                $(row).append($('<td></td>').text(feature ? feature : " "));
-                            }
-                            $(body).append(row);
-                        }
-                    }
-
-                    $(table).append($('<thead></thead>').append(header)).append(body);
-                    clear_response();
-                    $('#result').append(table);
+        for (var dictionary in tokens) {
+            var t = tokens[dictionary];
+            var row = $('<div></div>').addClass('kuromoji-segmentation-row');
+            $(row).append($("<div></div>")
+                    .addClass('kuromoji-segmentation-title')
+                    .text(dictionary));
+            var character = 0;
+            for (var i = 0; i < t.length; i++) {
+                var token = $('<div></div>').addClass('kuromoji-segmentation-token');
+                for (var j = 0; j < t[i].SURFACE.length; j++) {
+                    $(token).append($("<div></div>")
+                            .addClass('kuromoji-segmentation-kanji')
+                            .addClass('kuromoji-segmentation-color-' + (character % 5))
+                            .toggleClass('kuromoji-segmentation-token-start', j == 0)
+                            .toggleClass('kuromoji-segmentation-token-end', j == t[i].SURFACE.length - 1)
+                            .text(t[i].SURFACE[j]));
                 }
-            });
-        }
+                character += t[i].SURFACE.length;
 
-        function clear_and_focus_input() {
-            $('#input').val('');
-            $('#input').focus();
-        }
-        function clear_response() {
-            $('#result table').remove();
-            $('#viterbi svg').remove();
-        }
-
-        function format_token(token) {
-            var row = '<tr>';
-            row += '<td>' + token.surface + '</td>';
-            row += '<td>' + token.pos + '</td>';
-            if (!token.base) {
-                row += '<td>' + token.surface + '</td>';
-            } else {
-                row += '<td>' + token.base + '</td>';
+                $(row).append(token);
             }
-            row += '<td>' + token.reading + '</td>';
-            row += '<td>' + token.pronunciation + '</td>';
-            row += '</tr>'
-            return row;
+            $(table).append(row);
         }
 
-        function get_mode() {
-            return $('input[type=radio]:checked').val();
-        }
+        return table;
+    }
 
-        $(document).ready(function () {
-            $("#clear").click(function () {
-                clear_and_focus_input();
+    function tokenize() {
+        var text = $('#input').val();
+        var mode = get_mode();
+        $.post('/kuromoji/rest/tokenizer/tokenize', { text: encodeURI(text), mode: mode}, function (data) {
+//          $.getJSON('/kuromoji/rest/tokenizer/tokenize?text=' + encodeURI(text) + '&mode=' + mode, function (data) {
+            var tokens = data.tokens;
+            if (mode == '3') {
+                var viterbi = data.viterbi;
                 clear_response();
-            });
+                $('#viterbi').append(viterbi);
+            } else {
+                var table = $('<table></table>').addClass("table").addClass("table-striped");
 
-            $("#tokenize").click(function () {
-                tokenize();
-            });
+                // get maximal features
+                var featureMap = {"SURFACE": 1000};
+                for (var dictionary in tokens) {
+                    var t = tokens[dictionary];
+                    for (var i = 0; i < t.length; i++) {
+                        for (var feature in t[i]) {
+                            featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
+                        }
+                    }
+                }
+                var features = [];
+                for (feature in featureMap) {
+                    features.push(feature);
+                }
 
-            $('input[type=radio]').click(function () {
-                tokenize();
-            });
+                //sort features by usage frequency
+                features.sort(function (a, b) {
+                    return featureMap[b] - featureMap[a];
+                });
+
+                // create table header
+                var header = $('<tr></tr>')
+                        .append($("<th></th>").text(""));
+                for (var i = 0; i < features.length; i++) {
+                    $(header).append(
+                            $("<th></th>").text(features[i])
+                    );
+                }
+
+                var body = $("<tbody></tbody>");
+                // add each dictionaries tokenization
+                for (var dictionary in tokens) {
+                    var t = tokens[dictionary];
+                    for (var i = 0; i < t.length; i++) {
+                        var row = $('<tr></tr>');
+                        $(row).append($('<td></td>').text(i == 0 ? dictionary : ""));
+                        for (var j = 0; j < features.length; j++) {
+                            var feature = t[i][features[j]];
+                            $(row).append($('<td></td>').text(feature ? feature : " "));
+                        }
+                        $(body).append(row);
+                    }
+                }
+
+                $(table).append($('<thead></thead>').append(header)).append(body);
+                clear_response();
+                $('#result').empty().append(createSegmentationTable(data)).append(table);
+            }
         });
-    </script>
+    }
+
+    function clear_and_focus_input() {
+        $('#input').val('');
+        $('#input').focus();
+    }
+    function clear_response() {
+        $('#result table').remove();
+        $('#viterbi svg').remove();
+    }
+
+    function format_token(token) {
+        var row = '<tr>';
+        row += '<td>' + token.surface + '</td>';
+        row += '<td>' + token.pos + '</td>';
+        if (!token.base) {
+            row += '<td>' + token.surface + '</td>';
+        } else {
+            row += '<td>' + token.base + '</td>';
+        }
+        row += '<td>' + token.reading + '</td>';
+        row += '<td>' + token.pronunciation + '</td>';
+        row += '</tr>'
+        return row;
+    }
+
+    function get_mode() {
+        return $('input[type=radio]:checked').val();
+    }
+
+    $(document).ready(function () {
+        $("#clear").click(function () {
+            clear_and_focus_input();
+            clear_response();
+        });
+
+        $("#tokenize").click(function () {
+            tokenize();
+        });
+
+        $('input[type=radio]').click(function () {
+            tokenize();
+        });
+    });
+</script>
 
 </head>
 
@@ -221,7 +340,7 @@
                 <form class="well">
                     <fieldset>
                         <div class="control-group">
-                            <textarea class="input-xlarge" id="input" rows="2">お寿司が食べたい。</textarea>
+                            <textarea class="input-xlarge" id="input" rows="2">タカタが５月、これに合わせて対象の製造時期を拡大した。</textarea>
                             <!--<button class="btn" id="clear">Clear</button>-->
                             <!--<button class="btn" id="tokenize">Tokenize</button>-->
                             <a class="btn" id="clear">Clear</a>
@@ -276,11 +395,11 @@
         </div>
 
         <div class="row">
-            <div class="span10" id="result"/>
+            <div class="span12" id="result"/>
         </div>
 
         <div class="row">
-            <div class="span10" id="viterbi"/>
+            <div class="span12" id="viterbi"/>
         </div>
     </section>
 
