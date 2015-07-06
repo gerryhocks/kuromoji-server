@@ -127,7 +127,7 @@ public class KuromojiServer {
                     jsonTokens.put(jsonToken);
                 }
             } catch (Exception e) {
-                throw new JSONException("Exception when tokinizing");
+                throw new JSONException("Exception when tokenizing");
             }
         }
         json.put("tokens", results);

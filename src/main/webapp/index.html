@@ -69,15 +69,26 @@
         padding-bottom: 24px;
     }
 
-    .kuromoji-segmentation-row {
+    .kuromoji-segmentation {
         display: block;
         vertical-align: middle;
-        height: 32px;
+        height: 42px;
         white-space: nowrap;
+    }
+
+    .kuromoji-segmentation.kuromoji-vertical {
+        height: auto;
+        width: 174px;
+        float: left;
+        white-space: normal;
     }
 
     .kuromoji-segmentation-original {
         color: #77a;
+    }
+
+    .kuromoji-segmentation-original.kuromoji-vertical {
+        width: 58px !important;
     }
 
     .kuromoji-segmentation-title {
@@ -87,11 +98,33 @@
         font-size: 13px;
     }
 
+    .kuromoji-segmentation-original .kuromoji-segmentation-kanji {
+        border: solid 1px rgba(119, 119, 170, 0.32);
+        border-left: dotted 1px rgba(119, 119, 170, 0.22);
+    }
+
+    .kuromoji-segmentation-original .kuromoji-segmentation-kanji.kuromoji-vertical {
+        border-left: solid 1px rgba(119, 119, 170, 0.32);
+        border-bottom: dotted 1px rgba(119, 119, 170, 0.22);
+    }
+
     .kuromoji-segmentation-kanji {
         display: inline-block;
         vertical-align: middle;
         width: 42px;
+        height: 42px;
+        line-height: 42px;
+        box-sizing: border-box;
+        border: solid 1px transparent;
         text-align: center;
+    }
+
+    .kuromoji-segmentation-kanji.kuromoji-vertical {
+        height: 58px;
+        width: 58px;
+        font-size: 44px;
+        line-height: 58px;
+        display: block;
     }
 
     .kuromoji-segmentation-color-0 {
@@ -117,16 +150,55 @@
     .kuromoji-segmentation-token {
         display: inline;
         vertical-align: middle;
+        box-sizing: border-box;
+    }
+
+    .kuromoji-segmentation-token.kuromoji-vertical {
+        display: block;
+        float: left;
+    }
+
+    .kuromoji-segmentation-token-surface {
+        display: inline-block;
     }
 
     .kuromoji-segmentation-token-start {
-        box-sizing: border-box;
     }
 
     .kuromoji-segmentation-token-end {
-        box-sizing: border-box;
-        border-right: solid 1px #77a;
+        border-right: solid 1px rgba(119, 119, 170, 0.52);
     }
+
+    .kuromoji-segmentation-token-end.kuromoji-vertical {
+        border-right: solid 1px transparent;
+        border-bottom: solid 1px rgba(119, 119, 170, 0.52);
+    }
+
+    .kuromoji-segmentation-token-features {
+        display: none;
+        box-sizing: border-box;
+        float: right;
+        overflow: hidden;
+        height: 52px;
+        width: 108px;
+        font-size: 14px;
+        line-height: 14px;
+        margin-top:1px;
+        padding-left:4px;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        box-shadow: inset 0px 0px 5px #b2b2b2;
+        background-color: #fbfbfb;
+    }
+
+    .kuromoji-segmentation-token-features.kuromoji-vertical {
+        display: block;
+    }
+
+    .kuromoji-segmentation-feature {
+        display: block;
+    }
+
 </style>
 
 <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
@@ -155,11 +227,11 @@
 
         // create table header containing a cell for each source character
         var header = $('<div></div>')
-                .addClass('kuromoji-segmentation-row')
+                .addClass('kuromoji-segmentation')
                 .addClass('kuromoji-segmentation-original')
                 .append($("<div></div>")
                         .addClass('kuromoji-segmentation-title')
-                        .text(""));
+                        .html("&nbsp;"));
         for (var i = 0; i < data.input.length; i++) {
             $(header).append(
                     $("<div></div>")
@@ -171,23 +243,48 @@
 
         $(table).append(header);
 
+        var featureNames = getFeatureNames(tokens);
+
         for (var dictionary in tokens) {
             var t = tokens[dictionary];
-            var row = $('<div></div>').addClass('kuromoji-segmentation-row');
+            var row = $('<div></div>').addClass('kuromoji-segmentation');
             $(row).append($("<div></div>")
                     .addClass('kuromoji-segmentation-title')
                     .text(dictionary));
             var character = 0;
             for (var i = 0; i < t.length; i++) {
-                var token = $('<div></div>').addClass('kuromoji-segmentation-token');
+                var surface = $('<div></div>').addClass('kuromoji-segmentation-token-surface');
+                var token = $('<div></div>').addClass('kuromoji-segmentation-token').append(surface);
+
+                // add each character in the token
                 for (var j = 0; j < t[i].SURFACE.length; j++) {
-                    $(token).append($("<div></div>")
+                    $(surface).append($("<div></div>")
                             .addClass('kuromoji-segmentation-kanji')
                             .addClass('kuromoji-segmentation-color-' + (character % 5))
                             .toggleClass('kuromoji-segmentation-token-start', j == 0)
                             .toggleClass('kuromoji-segmentation-token-end', j == t[i].SURFACE.length - 1)
                             .text(t[i].SURFACE[j]));
                 }
+                // add the features
+                var kanjiHeight = 58;
+                var featuresTable = $("<div></div>")
+                        .addClass('kuromoji-segmentation-token-features')
+                        .css("height", ((t[i].SURFACE.length * kanjiHeight)-2) + "px");
+                for (var j = 0; j < featureNames.length; j++) {
+                    var featureName = featureNames[j];
+                    if (featureName != "SURFACE") {
+                        var featureValue = t[i][featureName];
+                        if (featureValue) {
+                            $(featuresTable)
+                                    .append(
+                                            $("<div></div>")
+                                                    .addClass('kuromoji-segmentation-feature')
+                                                    .text(featureValue)
+                                    );
+                        }
+                    }
+                }
+                $(token).append(featuresTable);
                 character += t[i].SURFACE.length;
 
                 $(row).append(token);
@@ -196,6 +293,31 @@
         }
 
         return table;
+    }
+
+    // return feature names in order of popularity
+    function getFeatureNames(tokens) {
+        // get maximal features
+        var featureMap = {"SURFACE": 1000};
+        for (var dictionary in tokens) {
+            var t = tokens[dictionary];
+            for (var i = 0; i < t.length; i++) {
+                for (var feature in t[i]) {
+                    featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
+                }
+            }
+        }
+        var features = [];
+        for (feature in featureMap) {
+            features.push(feature);
+        }
+
+        //sort features by usage frequency
+        features.sort(function (a, b) {
+            return featureMap[b] - featureMap[a];
+        });
+
+        return features;
     }
 
     function tokenize() {
@@ -209,55 +331,8 @@
                 clear_response();
                 $('#viterbi').append(viterbi);
             } else {
-                var table = $('<table></table>').addClass("table").addClass("table-striped");
-
-                // get maximal features
-                var featureMap = {"SURFACE": 1000};
-                for (var dictionary in tokens) {
-                    var t = tokens[dictionary];
-                    for (var i = 0; i < t.length; i++) {
-                        for (var feature in t[i]) {
-                            featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
-                        }
-                    }
-                }
-                var features = [];
-                for (feature in featureMap) {
-                    features.push(feature);
-                }
-
-                //sort features by usage frequency
-                features.sort(function (a, b) {
-                    return featureMap[b] - featureMap[a];
-                });
-
-                // create table header
-                var header = $('<tr></tr>')
-                        .append($("<th></th>").text(""));
-                for (var i = 0; i < features.length; i++) {
-                    $(header).append(
-                            $("<th></th>").text(features[i])
-                    );
-                }
-
-                var body = $("<tbody></tbody>");
-                // add each dictionaries tokenization
-                for (var dictionary in tokens) {
-                    var t = tokens[dictionary];
-                    for (var i = 0; i < t.length; i++) {
-                        var row = $('<tr></tr>');
-                        $(row).append($('<td></td>').text(i == 0 ? dictionary : ""));
-                        for (var j = 0; j < features.length; j++) {
-                            var feature = t[i][features[j]];
-                            $(row).append($('<td></td>').text(feature ? feature : " "));
-                        }
-                        $(body).append(row);
-                    }
-                }
-
-                $(table).append($('<thead></thead>').append(header)).append(body);
                 clear_response();
-                $('#result').empty().append(createSegmentationTable(data)).append(table);
+                $('#result').empty().append(createSegmentationTable(data));
             }
         });
     }
@@ -298,6 +373,10 @@
 
         $("#tokenize").click(function () {
             tokenize();
+        });
+
+        $("#rotate").click(function () {
+            $("div").toggleClass("kuromoji-vertical");
         });
 
         $('input[type=radio]').click(function () {
@@ -345,6 +424,7 @@
                             <!--<button class="btn" id="tokenize">Tokenize</button>-->
                             <a class="btn" id="clear">Clear</a>
                             <a class="btn" id="tokenize">Tokenize</a>
+                            <a class="btn" id="rotate">Rotate</a>
                         </div>
                     </fieldset>
                 </form>
