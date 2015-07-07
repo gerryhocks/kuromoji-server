@@ -11,197 +11,317 @@
 
 <link rel="shortcut icon" href="img/atilika.ico"/>
 
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet">
-<!--<link href="css/kuromoji.css" type="text/css" rel="stylesheet"/>-->
+<link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<!--<link href="css/bootstrap-theme.min.css" type="text/css" rel="stylesheet">-->
 
 <!--  customisations -->
 <style type="text/css">
-    body {
-        background-color: #ffffff;
-        color: #404040;
-        position: relative;
-    }
+body {
+    background-color: #ffffff;
+    color: #404040;
+    position: relative;
+}
 
-    section > .page-header {
-        padding-bottom: 0px;
-    }
+section > .page-header {
+    padding-bottom: 0px;
+}
 
-    a {
-        color: #0069d6;
-    }
+a {
+    color: #0069d6;
+}
 
-    a:hover {
-        color: #00438a;
-    }
+a:hover {
+    color: #00438a;
+}
 
-    li {
-        color: #606060;
-    }
+li {
+    color: #606060;
+}
 
-    #input {
-        width: 100%;
-        resize: vertical;
-    }
+#input {
+    width: 100%;
+    resize: vertical;
+}
 
-    h3, h4, h5, h6 {
-        line-height: 36px;
-    }
+h3, h4, h5, h6 {
+    line-height: 36px;
+}
 
-    h2 small {
-        color: #bfbfbf;
-        font-size: 14px;
-    }
+h2 small {
+    color: #bfbfbf;
+    font-size: 14px;
+}
 
-    .container > footer p {
-        padding-top: 20px;
-        text-align: right;
-        font-size: 12px;
-        color: #888;
-    }
+.container > footer p {
+    padding-top: 20px;
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+}
 
-    .kuromoji-segmentation-container {
-        font-size: 28px;
-        line-height: 32px;
-        box-sizing: border-box;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-top: 24px;
-        padding-bottom: 24px;
-    }
+.kuromoji-segmentation-container {
+    font-size: 28px;
+    line-height: 32px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 24px;
+}
 
-    .kuromoji-segmentation {
-        display: block;
-        vertical-align: middle;
-        height: 42px;
-        white-space: nowrap;
-    }
+.kuromoji-segmentation {
+    display: block;
+    vertical-align: middle;
+    height: 42px;
+    white-space: nowrap;
+}
 
-    .kuromoji-segmentation.kuromoji-vertical {
-        height: auto;
-        width: 174px;
-        float: left;
-        white-space: normal;
-    }
+.kuromoji-segmentation.kuromoji-vertical {
+    height: auto;
+    width: 174px;
+    float: left;
+    white-space: normal;
+}
 
-    .kuromoji-segmentation-original {
-        color: #77a;
-    }
+.kuromoji-segmentation-original {
+    color: #77a;
+}
 
-    .kuromoji-segmentation-original.kuromoji-vertical {
-        width: 58px !important;
-    }
+.kuromoji-segmentation-original.kuromoji-vertical {
+    width: 58px !important;
+}
 
-    .kuromoji-segmentation-title {
-        display: inline-block;
-        vertical-align: middle;
-        width: 120px;
-        font-size: 13px;
-    }
+.kuromoji-segmentation-original.kuromoji-expanded {
+    display: none !important;
+}
 
-    .kuromoji-segmentation-original .kuromoji-segmentation-kanji {
-        border: solid 1px rgba(119, 119, 170, 0.32);
-        border-left: dotted 1px rgba(119, 119, 170, 0.22);
-    }
+.kuromoji-segmentation-title {
+    display: inline-block;
+    vertical-align: middle;
+    width: 134px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #777;
+}
 
-    .kuromoji-segmentation-original .kuromoji-segmentation-kanji.kuromoji-vertical {
-        border-left: solid 1px rgba(119, 119, 170, 0.32);
-        border-bottom: dotted 1px rgba(119, 119, 170, 0.22);
-    }
+.kuromoji-segmentation-original .kuromoji-segmentation-kanji {
+    border: solid 1px rgba(119, 119, 170, 0.32);
+    border-left: dotted 1px rgba(119, 119, 170, 0.22);
+}
 
-    .kuromoji-segmentation-kanji {
-        display: inline-block;
-        vertical-align: middle;
-        width: 42px;
-        height: 42px;
-        line-height: 42px;
-        box-sizing: border-box;
-        border: solid 1px transparent;
-        text-align: center;
-    }
+.kuromoji-segmentation-original .kuromoji-segmentation-kanji.kuromoji-vertical {
+    border-left: solid 1px rgba(119, 119, 170, 0.32);
+    border-bottom: dotted 1px rgba(119, 119, 170, 0.22);
+}
 
-    .kuromoji-segmentation-kanji.kuromoji-vertical {
-        height: 58px;
-        width: 58px;
-        font-size: 44px;
-        line-height: 58px;
-        display: block;
-    }
+.kuromoji-segmentation-kanji {
+    display: inline-block;
+    vertical-align: middle;
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    box-sizing: border-box;
+    border: solid 1px transparent;
+    text-align: center;
+}
 
-    .kuromoji-segmentation-color-0 {
-        background-color: rgba(200, 200, 240, 0.3);
-    }
+.kuromoji-segmentation-kanji.kuromoji-vertical {
+    height: 58px;
+    width: 58px;
+    font-size: 44px;
+    line-height: 58px;
+    display: block;
+}
 
-    .kuromoji-segmentation-color-1 {
-        background-color: rgba(200, 240, 200, 0.4);
-    }
+.kuromoji-segmentation-color-0 {
+    background-color: rgba(200, 200, 240, 0.3);
+}
 
-    .kuromoji-segmentation-color-2 {
-        background-color: rgba(240, 200, 240, 0.5);
-    }
+.kuromoji-segmentation-color-1 {
+    background-color: rgba(200, 240, 200, 0.4);
+}
 
-    .kuromoji-segmentation-color-3 {
-        background-color: rgba(200, 240, 240, 0.6);
-    }
+.kuromoji-segmentation-color-2 {
+    background-color: rgba(240, 200, 240, 0.5);
+}
 
-    .kuromoji-segmentation-color-4 {
-        background-color: rgba(240, 240, 200, 0.5);
-    }
+.kuromoji-segmentation-color-3 {
+    background-color: rgba(200, 240, 240, 0.6);
+}
 
-    .kuromoji-segmentation-token {
-        display: inline;
-        vertical-align: middle;
-        box-sizing: border-box;
-    }
+.kuromoji-segmentation-color-4 {
+    background-color: rgba(240, 240, 200, 0.5);
+}
 
-    .kuromoji-segmentation-token.kuromoji-vertical {
-        display: block;
-        float: left;
-    }
+.kuromoji-segmentation-token {
+    display: inline;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
 
-    .kuromoji-segmentation-token-surface {
-        display: inline-block;
-    }
+.kuromoji-segmentation-token.kuromoji-vertical {
+    display: block;
+    float: left;
+}
 
-    .kuromoji-segmentation-token-start {
-    }
+.kuromoji-segmentation-token-surface {
+    display: inline-block;
+}
 
-    .kuromoji-segmentation-token-end {
-        border-right: solid 1px rgba(119, 119, 170, 0.52);
-    }
+.kuromoji-segmentation-token-start {
+}
 
-    .kuromoji-segmentation-token-end.kuromoji-vertical {
-        border-right: solid 1px transparent;
-        border-bottom: solid 1px rgba(119, 119, 170, 0.52);
-    }
+.kuromoji-segmentation-token-end {
+    border-right: solid 1px rgba(119, 119, 170, 0.52);
+}
 
-    .kuromoji-segmentation-token-features {
-        display: none;
-        box-sizing: border-box;
-        float: right;
-        overflow: hidden;
-        height: 52px;
-        width: 108px;
-        font-size: 14px;
-        line-height: 14px;
-        margin-top:1px;
-        padding-left:4px;
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
-        box-shadow: inset 0px 0px 5px #b2b2b2;
-        background-color: #fbfbfb;
-    }
+.kuromoji-segmentation-token-end.kuromoji-vertical {
+    border-right: solid 1px transparent;
+    border-bottom: solid 1px rgba(119, 119, 170, 0.52);
+}
 
-    .kuromoji-segmentation-token-features.kuromoji-vertical {
-        display: block;
-    }
+.kuromoji-segmentation-token-features {
+    display: none;
+    box-sizing: border-box;
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 52px;
+    width: 108px;
+    font-size: 13px;
+    line-height: 13px;
+    margin-top: 1px;
+    padding-top: 1px;
+    padding-left: 4px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: inset 0px 0px 3px #b2b2b2;
+    background-color: #fbfbfb;
+}
 
-    .kuromoji-segmentation-feature {
-        display: block;
-    }
+.kuromoji-segmentation-token-features.kuromoji-vertical {
+    display: block;
+}
+
+.kuromoji-segmentation-feature {
+    display: block;
+}
+
+.kuromoji-segmentation-feature i {
+    font-size: 8px;
+    line-height: 8px;
+    font-style: normal;
+    color: #aaa;
+}
+
+.kuromoji-detail-container {
+    display: none;
+    font-size: 28px;
+    line-height: 32px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.kuromoji-detail-container.kuromoji-expanded {
+    display: block !important;
+}
+
+.kuromoji-detail-container.kuromoji-vertical.kuromoji-expanded {
+    margin-top: 35px;
+}
+
+.kuromoji-detail {
+    height: auto;
+    width: 100%;
+    float: left;
+    white-space: normal;
+}
+
+.kuromoji-detail-title {
+    display: inline-block;
+    vertical-align: middle;
+    width: 120px;
+    font-size: 13px;
+}
+
+.kuromoji-detail-kanji.kuromoji-vertical {
+    width: 80px;
+}
+
+.kuromoji-detail-kanji {
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: solid 1px transparent;
+    text-align: center;
+    height: 96px;
+    width: 156px;
+    font-size: 82px;
+    line-height: 96px;
+    display: block;
+}
+
+.kuromoji-detail-token.kuromoji-vertical {
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.kuromoji-detail-token {
+    vertical-align: middle;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: dotted 3px rgba(0, 0, 0, 0.25);
+}
+
+.kuromoji-detail-token-surface {
+    display: inline-block;
+}
+
+.kuromoji-detail-token-start {
+}
+
+.kuromoji-detail-token-end {
+}
+
+.kuromoji-detail-token-features {
+    display: block;
+    box-sizing: border-box;
+    float: right;
+    overflow: hidden;
+    width: 640px;
+    font-size: 14px;
+    line-height: 14px;
+    margin-top: 1px;
+    padding-top: 1px;
+    padding-left: 24px;
+}
+
+.kuromoji-detail-token-features table th {
+    font-weight: normal;
+    color: #666;
+    font-size: 12px;
+    width: 170px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.kuromoji-detail-token-features table td {
+    color: #222;
+    width: 130px;
+}
 
 </style>
 
-<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 <!-- Google Analytics -->
 <script type="text/javascript">
@@ -221,266 +341,348 @@
 
 
 <script>
-    function createSegmentationTable(data) {
-        var tokens = data.tokens;
-        var table = $('<div></div>').addClass('kuromoji-segmentation-container');
 
-        // create table header containing a cell for each source character
-        var header = $('<div></div>')
-                .addClass('kuromoji-segmentation')
-                .addClass('kuromoji-segmentation-original')
-                .append($("<div></div>")
-                        .addClass('kuromoji-segmentation-title')
-                        .html("&nbsp;"));
-        for (var i = 0; i < data.input.length; i++) {
-            $(header).append(
-                    $("<div></div>")
-                            .addClass('kuromoji-segmentation-kanji')
-//                            .addClass('kuromoji-segmentation-color-' + (i % 5))
-                            .text(data.input[i])
-            );
-        }
+function createSegmentationTable(data) {
+    var featuresDefault = {
+        "POS_LEVEL_1": "POS1",
+        "POS_LEVEL_2": "POS2",
+        "POS_LEVEL_3": "POS3",
+        "POS_LEVEL_4": "POS4"
+    };
+    var tokens = data.tokens;
+    var table = $('<div></div>').addClass('kuromoji-segmentation-container');
 
-        $(table).append(header);
-
-        var featureNames = getFeatureNames(tokens);
-
-        for (var dictionary in tokens) {
-            var t = tokens[dictionary];
-            var row = $('<div></div>').addClass('kuromoji-segmentation');
-            $(row).append($("<div></div>")
+    // create table header containing a cell for each source character
+    var header = $('<div></div>')
+            .addClass('kuromoji-segmentation')
+            .addClass('kuromoji-segmentation-original')
+            .append($("<div></div>")
                     .addClass('kuromoji-segmentation-title')
-                    .text(dictionary));
-            var character = 0;
-            for (var i = 0; i < t.length; i++) {
-                var surface = $('<div></div>').addClass('kuromoji-segmentation-token-surface');
-                var token = $('<div></div>').addClass('kuromoji-segmentation-token').append(surface);
-
-                // add each character in the token
-                for (var j = 0; j < t[i].SURFACE.length; j++) {
-                    $(surface).append($("<div></div>")
-                            .addClass('kuromoji-segmentation-kanji')
-                            .addClass('kuromoji-segmentation-color-' + (character % 5))
-                            .toggleClass('kuromoji-segmentation-token-start', j == 0)
-                            .toggleClass('kuromoji-segmentation-token-end', j == t[i].SURFACE.length - 1)
-                            .text(t[i].SURFACE[j]));
-                }
-                // add the features
-                var kanjiHeight = 58;
-                var featuresTable = $("<div></div>")
-                        .addClass('kuromoji-segmentation-token-features')
-                        .css("height", ((t[i].SURFACE.length * kanjiHeight)-2) + "px");
-                for (var j = 0; j < featureNames.length; j++) {
-                    var featureName = featureNames[j];
-                    if (featureName != "SURFACE") {
-                        var featureValue = t[i][featureName];
-                        if (featureValue) {
-                            $(featuresTable)
-                                    .append(
-                                            $("<div></div>")
-                                                    .addClass('kuromoji-segmentation-feature')
-                                                    .text(featureValue)
-                                    );
-                        }
-                    }
-                }
-                $(token).append(featuresTable);
-                character += t[i].SURFACE.length;
-
-                $(row).append(token);
-            }
-            $(table).append(row);
-        }
-
-        return table;
+                    .html("&nbsp;"));
+    for (var i = 0; i < data.input.length; i++) {
+        $(header).append(
+                $("<div></div>")
+                        .addClass('kuromoji-segmentation-kanji')
+                        .text(data.input[i])
+        );
     }
 
-    // return feature names in order of popularity
-    function getFeatureNames(tokens) {
-        // get maximal features
-        var featureMap = {"SURFACE": 1000};
-        for (var dictionary in tokens) {
-            var t = tokens[dictionary];
-            for (var i = 0; i < t.length; i++) {
-                for (var feature in t[i]) {
-                    featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
+    $(table).append(header);
+
+    for (var dictionary in tokens) {
+        var t = tokens[dictionary];
+        var row = $('<div></div>').addClass('kuromoji-segmentation');
+        $(row).append($("<div></div>")
+                .addClass('kuromoji-segmentation-title')
+                .text(dictionary));
+        var character = 0;
+        for (var i = 0; i < t.length; i++) {
+            var surface = $('<div></div>').addClass('kuromoji-segmentation-token-surface');
+            var token = $('<div></div>').addClass('kuromoji-segmentation-token').append(surface);
+
+            // add each character in the token
+            for (var j = 0; j < t[i].SURFACE.length; j++) {
+                $(surface).append($("<div></div>")
+                        .addClass('kuromoji-segmentation-kanji')
+                        .addClass('kuromoji-segmentation-color-' + (character % 5))
+                        .toggleClass('kuromoji-segmentation-token-start', j == 0)
+                        .toggleClass('kuromoji-segmentation-token-end', j == t[i].SURFACE.length - 1)
+                        .text(t[i].SURFACE[j]));
+            }
+            // add the features
+            var kanjiHeight = 58;
+            var featuresTable = $("<div></div>")
+                    .addClass('kuromoji-segmentation-token-features')
+                    .css("height", ((t[i].SURFACE.length * kanjiHeight) - 2) + "px");
+            for (var featureName in featuresDefault) {
+                var featureDescription = featuresDefault[featureName];
+                var featureValue = t[i][featureName];
+                if (featureValue) {
+                    $(featuresTable)
+                            .append(
+                                    $("<div></div>")
+                                            .addClass('kuromoji-segmentation-feature')
+                                            .html("<i>" + featureDescription + "</i>&nbsp;" + featureValue)
+                            );
                 }
             }
-        }
-        var features = [];
-        for (feature in featureMap) {
-            features.push(feature);
-        }
+            $(token).append(featuresTable);
+            character += t[i].SURFACE.length;
 
-        //sort features by usage frequency
-        features.sort(function (a, b) {
-            return featureMap[b] - featureMap[a];
-        });
-
-        return features;
+            $(row).append(token);
+        }
+        $(table).append(row);
+        $(table).append(createDetailTable(data, dictionary));
     }
 
-    function tokenize() {
-        var text = $('#input').val();
-        var mode = get_mode();
-        $.post('/kuromoji/rest/tokenizer/tokenize', { text: encodeURI(text), mode: mode}, function (data) {
-//          $.getJSON('/kuromoji/rest/tokenizer/tokenize?text=' + encodeURI(text) + '&mode=' + mode, function (data) {
-            var tokens = data.tokens;
-            if (mode == '3') {
-                var viterbi = data.viterbi;
-                clear_response();
-                $('#viterbi').append(viterbi);
-            } else {
-                clear_response();
-                $('#result').empty().append(createSegmentationTable(data));
+
+    return table;
+}
+
+var prettyNameMap = {};
+
+function getPrettierName(name) {
+    var uscore = false;
+    var newName = name[0];
+    for (var i = 1; i < name.length; i++) {
+        if (name[i] == "_") {
+            newName += ' ';
+            uscore = true;
+        }
+        else {
+            newName += uscore ? name[i] : name[i].toLowerCase();
+            uscore = false;
+        }
+    }
+    return newName;
+}
+
+function createDetailTable(data, dictionary) {
+    var tokens = data.tokens;
+    var table = $('<div></div>').addClass('kuromoji-detail-container');
+
+    var featureNames = getFeatureNames(tokens);
+
+    var t = tokens[dictionary];
+    var row = $('<div></div>').addClass('kuromoji-detail');
+    $(row).append($("<div></div>")
+            .addClass('kuromoji-detail-title')
+//            .text(dictionary));
+            .html("&nbsp;"));
+    var character = 0;
+    for (var i = 0; i < t.length; i++) {
+        var surface = $('<div></div>').addClass('kuromoji-detail-token-surface');
+        var token = $('<div></div>').addClass('kuromoji-detail-token').append(surface);
+
+        // add each character in the token
+        for (var j = 0; j < t[i].SURFACE.length; j++) {
+            $(surface).append($("<div></div>")
+                    .addClass('kuromoji-detail-kanji')
+                    .toggleClass('kuromoji-detail-token-start', j == 0)
+                    .toggleClass('kuromoji-detail-token-end', j == t[i].SURFACE.length - 1)
+                    .text(t[i].SURFACE[j]));
+        }
+        // add the features
+        var featuresTable = $("<table></table>").addClass("table-striped");
+        for (var j = 0; j < featureNames.length; j += 2) {
+            var featureName = featureNames[j];
+            var featureName2 = featureNames[j + 1];
+            var featureValue = t[i][featureName];
+            var featureValue2 = t[i][featureName2];
+            if (featureValue) {
+                $(featuresTable)
+                        .append($("<tr></tr>")
+                                .append($("<th></th>").text(prettyNameMap[featureName]))
+                                .append($("<td></td>").text(featureValue))
+                                .append($("<th></th>").text(prettyNameMap[featureName]))
+                                .append($("<td></td>").text(featureValue2))
+                        );
             }
-        });
-    }
-
-    function clear_and_focus_input() {
-        $('#input').val('');
-        $('#input').focus();
-    }
-    function clear_response() {
-        $('#result table').remove();
-        $('#viterbi svg').remove();
-    }
-
-    function format_token(token) {
-        var row = '<tr>';
-        row += '<td>' + token.surface + '</td>';
-        row += '<td>' + token.pos + '</td>';
-        if (!token.base) {
-            row += '<td>' + token.surface + '</td>';
-        } else {
-            row += '<td>' + token.base + '</td>';
         }
-        row += '<td>' + token.reading + '</td>';
-        row += '<td>' + token.pronunciation + '</td>';
-        row += '</tr>'
-        return row;
+        var featuresDiv = $("<div></div>")
+                .addClass('kuromoji-detail-token-features')
+                .append(featuresTable);
+        $(token).append(featuresDiv);
+        character += t[i].SURFACE.length;
+
+        $(row).append(token);
+    }
+    $(table).append(row);
+
+    return table;
+}
+
+// return feature names in order of popularity
+function getFeatureNames(tokens) {
+    // get maximal features
+    var featureMap = {};
+    for (var dictionary in tokens) {
+        var t = tokens[dictionary];
+        for (var i = 0; i < t.length; i++) {
+            for (var feature in t[i]) {
+                featureMap[feature] = featureMap[feature] ? featureMap[feature] + 1 : 1;
+            }
+        }
+    }
+    var features = [];
+    for (feature in featureMap) {
+        features.push(feature);
+        prettyNameMap[feature] = getPrettierName(feature);
     }
 
-    function get_mode() {
-        return $('input[type=radio]:checked').val();
-    }
-
-    $(document).ready(function () {
-        $("#clear").click(function () {
-            clear_and_focus_input();
-            clear_response();
-        });
-
-        $("#tokenize").click(function () {
-            tokenize();
-        });
-
-        $("#rotate").click(function () {
-            $("div").toggleClass("kuromoji-vertical");
-        });
-
-        $('input[type=radio]').click(function () {
-            tokenize();
-        });
+    //sort features by usage frequency
+    features.sort(function (a, b) {
+        return featureMap[b] - featureMap[a];
     });
+
+    return features;
+}
+
+function tokenize() {
+    var text = $('#input').val();
+    var mode = get_mode();
+    $.post('/kuromoji/rest/tokenizer/tokenize', { text: encodeURI(text), mode: mode}, function (data) {
+        if (mode == '3') {
+            var viterbi = data.viterbi;
+            clear_response();
+            $('#viterbi').append(viterbi);
+        } else {
+            clear_response();
+            $('#result')
+                    .empty()
+                    .append(createSegmentationTable(data));
+        }
+        $("#rotate").fadeIn();
+        $("#expand").fadeIn();
+    });
+}
+
+function clear_and_focus_input() {
+    $('#input').val('');
+    $('#input').focus();
+}
+function clear_response() {
+    $('#result table').remove();
+    $('#viterbi svg').remove();
+}
+
+function format_token(token) {
+    var row = '<tr>';
+    row += '<td>' + token.surface + '</td>';
+    row += '<td>' + token.pos + '</td>';
+    if (!token.base) {
+        row += '<td>' + token.surface + '</td>';
+    } else {
+        row += '<td>' + token.base + '</td>';
+    }
+    row += '<td>' + token.reading + '</td>';
+    row += '<td>' + token.pronunciation + '</td>';
+    row += '</tr>'
+    return row;
+}
+
+function get_mode() {
+    return $('input[type=radio]:checked').val();
+}
+
+$(document).ready(function () {
+    $("#clear").click(function () {
+        clear_and_focus_input();
+        clear_response();
+    });
+
+    $("#tokenize").click(function () {
+        tokenize();
+    });
+
+    $("#rotate").hide().click(function () {
+        $("div").toggleClass("kuromoji-vertical");
+    });
+
+    $("#expand").hide().click(function () {
+        $("div").toggleClass("kuromoji-expanded");
+    });
+
+    $('input[type=radio]').click(function () {
+        tokenize();
+    });
+});
 </script>
 
 </head>
 
-<body>
+<body role="document">
 
 <div class="container">
     <section id="introduction">
         <div class="page-header">
             <div class="row">
-                <div class="span8">
+                <div class="col-sm-6">
                     <a href="http://www.atilika.org" target="_blank"><img src="img/kuromoji_logo_small.png"/></a>
                 </div>
-                <div class="span4">
-                    <a href="http://www.atilika.com" target="_blank"><img src="img/atilika_logo_horizontal.png"/></a>
+                <div class="col-sm-6">
+                    <a href="http://www.atilika.com" class="pull-right" target="_blank"><img
+                            src="img/atilika_logo_horizontal.png"/></a>
                 </div>
             </div>
         </div>
 
 
         <div class="row">
-            <div class="span10">
+            <div class="col-sm-12">
                 <h3>Kuromoji demo</h3>
 
                 <p>
                     Enter Japanese text below in UTF-8 and click Tokenize.
                 </p>
+            </div>
+        </div>
 
+        <div class="row  well">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <textarea class="form-control input-xlarge" id="input" rows="2">7月、ペータは製造時期を拡大した。</textarea>
+
+                    <p>
+                        <span class="label label-success">Note</span> Input is limited to 512 characters.
+                        Viterbi only uses the first 32 characters and requires SVG browser support.
+                    </p>
+                    <button class="btn" id="clear">Clear</button>
+                    <button class="btn btn-primary" id="tokenize">Tokenize</button>
+
+                    <div class="pull-right">
+                        <button class="btn btn-default" id="rotate">Rotate</button>
+                        <button class="btn btn-default" id="expand" data-toggle="button">Features</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="form-group pull-right">
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" value="0" checked>Normal
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" value="1">Search
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" value="2">Extended
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="optionsRadios" value="3">Viterbi
+                        </label>
+                    </div>
+
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="span10">
-                <form class="well">
-                    <fieldset>
-                        <div class="control-group">
-                            <textarea class="input-xlarge" id="input" rows="2">タカタが５月、これに合わせて対象の製造時期を拡大した。</textarea>
-                            <!--<button class="btn" id="clear">Clear</button>-->
-                            <!--<button class="btn" id="tokenize">Tokenize</button>-->
-                            <a class="btn" id="clear">Clear</a>
-                            <a class="btn" id="tokenize">Tokenize</a>
-                            <a class="btn" id="rotate">Rotate</a>
-                        </div>
-                    </fieldset>
-                </form>
-                <p>
-                    <span class="label label-success">Note</span> Input is limited to 512 chars for Search, Normal
-                    and Extended, and 32 chars for Viterbi. Viterbi needs SVG browser support.
-                </p>
-
-            </div>
-
-            <div class="span2">
-                <form>
-                    <fieldset>
-                        <div class="control-group">
-                            <div class="controls">
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" value="0" checked>Normal
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" value="1">Search
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" value="2">Extended
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="optionsRadios" value="3">Viterbi
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-                <p>
-                    <a href="https://twitter.com/share" class="twitter-share-button"
-                       data-url="http://atilika.org/kuromoji"
-                       data-text="Kuromoji 形態素解析デモ">Tweet</a>
-                    <script>!function (d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (!d.getElementById(id)) {
-                            js = d.createElement(s);
-                            js.id = id;
-                            js.src = "http://platform.twitter.com/widgets.js";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        }
-                    }(document, "script", "twitter-wjs");</script>
-                </p>
-
-            </div>
+            <div class="col-sm-12" id="result"></div>
         </div>
 
         <div class="row">
-            <div class="span12" id="result"/>
+            <div class="col-sm-12" id="viterbi"></div>
         </div>
 
         <div class="row">
-            <div class="span12" id="viterbi"/>
+            <div class="col-sm-12">
+                <a href="https://twitter.com/share" class="pull-right twitter-share-button"
+                   data-url="http://atilika.org/kuromoji"
+                   data-text="Kuromoji 形態素解析デモ">Tweet</a>
+                <script>!function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "http://platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, "script", "twitter-wjs");</script>
+            </div>
         </div>
+
     </section>
 
     <!--<footer>-->
