@@ -6,7 +6,7 @@
  * License is distributed with this work in the LICENSE.md file.  You may
  * also obtain a copy of the License from
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,9 +17,9 @@
 
 package org.atilika.kuromoji.server;
 
-import org.atilika.kuromoji.Dictionary;
-import org.atilika.kuromoji.Token;
-import org.atilika.kuromoji.Tokenizer;
+import com.atilika.kuromoji.Dictionary;
+import com.atilika.kuromoji.Token;
+import com.atilika.kuromoji.Tokenizer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,7 +106,6 @@ public class KuromojiServer {
     private JSONObject createResponse(String text, int mode) throws JSONException {
 
         JSONObject json = new JSONObject();
-
         JSONObject results = new JSONObject();
 
         for (String dictionaryName : Dictionary.getDictionaryNames()) {
@@ -120,7 +119,7 @@ public class KuromojiServer {
                 results.put(dictionaryName, jsonTokens);
                 for (Token token : tokens) {
                     JSONObject jsonToken = new JSONObject();
-                    jsonToken.put("SURFACE", token.getSurfaceForm());
+                    jsonToken.put("SURFACE", token.getSurface());
                     for (String name : token.getFeatureNames()) {
                         jsonToken.put(name, token.getFeature(name));
                     }
@@ -130,6 +129,7 @@ public class KuromojiServer {
                 throw new JSONException("Exception when tokenizing");
             }
         }
+
         json.put("tokens", results);
         json.put("input", text);
         json.put("mode", mode);

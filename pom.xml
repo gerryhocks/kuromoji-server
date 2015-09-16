@@ -17,13 +17,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <repositories>
-        <!--<repository>-->
-        <!--<id>Atilika Open Source Snapshots</id>-->
-        <!--<url>http://atilika.org/nexus/content/repositories/atilika/</url>-->
-        <!--</repository>-->
-    </repositories>
-
     <build>
         <finalName>kuromoji-server</finalName>
         <plugins>
@@ -47,62 +40,43 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
-
-        <!--Temporary references to local kuromoji jars -->
         <dependency>
-            <groupId>org.atilika.kuromoji</groupId>
-            <artifactId>kuromoji</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../kuromoji/kuromoji-common/target/kuromoji-common-0.9-SNAPSHOT.jar
-            </systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.atilika.kuromoji.ipadic</groupId>
+            <groupId>com.atilika.kuromoji</groupId>
             <artifactId>kuromoji-ipadic</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../kuromoji/kuromoji-ipadic/target/kuromoji-ipadic-0.9-SNAPSHOT.jar
-            </systemPath>
+            <version>0.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.atilika.kuromoji.unidic</groupId>
+            <groupId>com.atilika.kuromoji</groupId>
             <artifactId>kuromoji-unidic</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../kuromoji/kuromoji-unidic/target/kuromoji-unidic-0.9-SNAPSHOT.jar
-            </systemPath>
+            <version>0.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.atilika.kuromoji.unidic-kanaaccent</groupId>
+            <groupId>com.atilika.kuromoji</groupId>
             <artifactId>kuromoji-unidic-kanaaccent</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>
-                ${project.basedir}/../kuromoji/kuromoji-unidic-kanaaccent/target/kuromoji-unidic-kanaaccent-0.9-SNAPSHOT.jar
-            </systemPath>
+            <version>0.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.atilika.kuromoji.jumandic</groupId>
-            <artifactId>kuromoji-jumandic</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>
-                ${project.basedir}/../kuromoji/kuromoji-jumandic/target/kuromoji-jumandic-0.9-SNAPSHOT.jar
-            </systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.atilika.kuromoji.naist-jdic</groupId>
+            <groupId>com.atilika.kuromoji</groupId>
             <artifactId>kuromoji-naist-jdic</artifactId>
-            <version>0.9</version>
-            <scope>system</scope>
-            <systemPath>
-                ${project.basedir}/../kuromoji/kuromoji-naist-jdic/target/kuromoji-naist-jdic-0.9-SNAPSHOT.jar
-            </systemPath>
+            <version>0.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
-        <!--/-->
-
+        <dependency>
+            <groupId>com.atilika.kuromoji</groupId>
+            <artifactId>kuromoji-jumandic</artifactId>
+            <version>0.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.wink</groupId>
             <artifactId>wink-common</artifactId>
@@ -133,11 +107,19 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.5.6</version>
         </dependency>
+
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
+            <groupId>com.github.gerryhocks</groupId>
+            <artifactId>kuromoji-multiplex</artifactId>
+            <version>-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
